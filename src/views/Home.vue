@@ -1,18 +1,27 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="home-container">
+        <div class="contenedor-root">
+            <navHome/>
+            <postView/>
+        </div>
+    </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+<script>
+
+    import cookies from '../scripts/cookieManager'
+    import navHome from '../components/navHome'
+    import postView from '../components/HomeComponent'
+
+    export default {
+        components:{
+            navHome,
+            postView
+        } , beforeCreate () {
+            if (!cookies.getCookie('session')) {
+                 this.$router.push('/accounts/login/')
+            }
+        }
+    }
 </script>
